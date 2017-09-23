@@ -70,12 +70,13 @@ app.controller('playerController',['$scope', '$http', ($scope, $http)  => {
     $scope.songs = res.data;
   });
 
-  $scope.loadSong = (song) => {
+  $scope.loadSong = (song, playAfterLoad=true) => {
     $http.get('Songs/' + song, {responseType: 'arraybuffer'}).then((res)=>{
       let file = new File([res.data], song)
       loadFileToAudio(file);
     }).then(()=>{
-      audio.play();
+      if(playAfterLoad)
+        audio.play();
     });
   };
 
@@ -85,7 +86,7 @@ app.controller('playerController',['$scope', '$http', ($scope, $http)  => {
     audio.src = fileURL;
   }
 
-  $scope.loadSong('ChibatZion_0.mp3');
+  $scope.loadSong('ChibatZion_0.mp3', false);
 }]);
 
 app.directive('customOnChange', function() {
