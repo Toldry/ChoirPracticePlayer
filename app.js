@@ -75,8 +75,11 @@ app.controller('playerController',['$scope', '$http', ($scope, $http)  => {
       let file = new File([res.data], song)
       loadFileToAudio(file);
     }).then(()=>{
-      if(playAfterLoad)
+      if(playAfterLoad) {
         audio.play();
+      }
+
+      audio.playbackRate = $scope.playbackRate;
     });
   };
 
